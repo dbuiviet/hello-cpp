@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "../include/add.h"
 #include "../include/multiply.h"
 #include "../include/Account.h"
@@ -78,6 +79,85 @@ void incrementAndPrint()
 
 }
 
+// Define a new enumeration named Color
+enum Color
+{
+    // Here are the enumerators
+    // These define all the possible values this type can hold
+    // Each enumerator is separated by a comma, not a semicolon
+    COLOR_BLACK, //assigned to 0
+    COLOR_RED,  //assigned to 1
+    COLOR_BLUE, //assigned to 2
+    COLOR_GREEN, //assigned to 3
+    COLOR_WHITE, //assigned to 4
+    COLOR_CYAN, //assigned to 5
+    COLOR_YELLOW, //assigned to 6
+    COLOR_MAGENTA  //assigned to 7
+}; // however the enum itself must end with a semicolon
+
+void printColor(Color color)
+{
+    /*
+    if (color == COLOR_BLACK)
+        std::cout << "Black in enum Color is assigned to " << color << endl;
+      
+    else if (color == COLOR_RED)
+        std::cout << "Red in enum Color is assigned to " << color << endl;
+       
+    else if (color == COLOR_BLUE)
+        std::cout << "Blue in enum Color is assigned to " << color << endl;
+         
+    else if (color == COLOR_GREEN)
+        std::cout << "Green in enum Color is assigned to " << color << endl;
+    
+    else if (color == COLOR_WHITE)
+        std::cout << "White in enum Color is assigned to " << color << endl;
+        
+    else if (color == COLOR_CYAN)
+        std::cout << "Cyan in enum Color is assigned to " << color << endl;
+
+    else if (color == COLOR_YELLOW)
+        std::cout << "Yellow in enum Color is assigned to " << color << endl;
+
+    else if (color == COLOR_MAGENTA)
+        std::cout << "Magenta in enum Color is assigned to " << color << endl;
+         
+    else
+        std::cout << "Who knows!";
+    */
+
+    switch(color)
+    {
+        case COLOR_BLACK:
+            std::cout << "Black in enum Color is assigned to " << color << endl;
+
+        case COLOR_RED:
+            std::cout << "Red in enum Color is assigned to " << color << endl;
+
+        case COLOR_BLUE:
+            std::cout << "Blue in enum Color is assigned to " << color << endl;
+
+        case COLOR_GREEN:
+            std::cout << "Green in enum Color is assigned to " << color << endl;
+
+        case COLOR_WHITE:
+            std::cout << "White in enum Color is assigned to " << color << endl;
+
+        case COLOR_CYAN:
+            std::cout << "Cyan in enum Color is assigned to " << color << endl;
+
+        case COLOR_YELLOW:
+            std::cout << "Yellow in enum Color is assigned to " << color << endl;
+
+        case COLOR_MAGENTA:
+            std::cout << "Magenta in enum Color is assigned to " << color << endl;
+
+        default:
+            std::cout << "Who knows!";
+    }
+}
+
+//main() starting..
 int main()
 {
     /* code */
@@ -197,6 +277,7 @@ int main()
 	std::cout << "I am laughing? " << static_cast<bool>(me & isLaughing) << '\n';
     */
 
+    /*
     const unsigned int lowMask = 0xF; // bit mask to keep low 4 bits (hex for 0000 0000 0000 1111)
  
     std::cout << "Enter an integer: ";
@@ -206,7 +287,7 @@ int main()
     num &= lowMask; // remove the high bits to leave only the low bits
  
     std::cout << "The 4 low bits have value: " << num << '\n';
-
+    
 
     const unsigned int redBits = 0xFF000000;
     const unsigned int greenBits = 0x00FF0000;
@@ -228,6 +309,10 @@ int main()
     std::cout << static_cast<int>(green) << " of 255 green\n";
     std::cout << static_cast<int>(blue) << " of 255 blue\n";
     std::cout << static_cast<int>(alpha) << " of 255 alpha\n";
+    */
+
+    Color paint(COLOR_WHITE);    
+    printColor(paint);
 
     int g_var = 10; //local variable, assigned value = 10
     g_var++; //increment local variable
@@ -240,30 +325,47 @@ int main()
     incrementAndPrint();    //value of s_value is whatever we left it previously
     incrementAndPrint();
 
+
     Account account1{"Viet Dung", 1000};
     Account account2{"Tuong Phi", 100};
 
     //cout << "account1: " << account1.getName() << " has balance of $" << account1.getBalance() << endl;
     //cout << "account2: " << account2.getName() << " has balance of $" << account2.getBalance() << endl;
     account1.displayAccount();
-    account2.displayAccount();
-
-    cout << "Enter a deposit for " << account1.getName() << " : ";
-    int depositAmount1(0);
-    cin >> depositAmount1;
+    account2.displayAccount();    
+    
+    cout << "Enter a deposit for " << account1.getName() << " : ";    
+    long depositAmount1(0);
+    cin >> depositAmount1;   
     cout << "Adding $" << depositAmount1 << " to " << account1.getName() << endl;
     account1.deposit(depositAmount1);
-
-    cout << "Enter a deposit for " << account2.getName() << " : ";
-    int depositAmount2(0);
+    
+    cout << "Enter a deposit for " << account2.getName() << " : ";    
+    long depositAmount2(0);
     cin >> depositAmount2;
     cout << "Adding $" << depositAmount2 << " to " << account2.getName() << endl;
-    account2.deposit(depositAmount2);
+    account2.deposit(depositAmount2);    
 
     //cout << "account1: " << account1.getName() << " has balance of $" << account1.getBalance() << endl;
     //cout << "account2: " << account2.getName() << " has balance of $" << account2.getBalance() << endl;
     account1.displayAccount();
     account2.displayAccount();
+
+    Account newAccount{"",0};
+    cout << "Initial name for new account: " << newAccount.getName() << endl;
+    std::cin.ignore(32767, '\n'); //it's a way to ignore new line '\n'!!!
+    std::cout << "Enter name for new account: ";
+    std::string theName;
+    std::getline(std::cin, theName);    
+    newAccount.setName(theName);
+    cout << "New account name has " << theName.length() << " characters" << endl;
+    cout << "Enter deposit for " << newAccount.getName() << " : ";
+    long depositAmount3(0);
+    cin >> depositAmount3;
+    newAccount.deposit(depositAmount3);
+    cout << "Adding $" << depositAmount3 << " to " << newAccount.getName() << endl;
+    newAccount.displayAccount();
+
 
     return 0;
 }

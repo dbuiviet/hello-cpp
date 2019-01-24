@@ -9,12 +9,12 @@ class Account
 
     private:
         std::string name;
-        int balance{0};
+        long balance{0};
 
     public:
 
         //constructor
-        Account(std::string accountName, int initialBalance)
+        Account(std::string accountName, long initialBalance)
         {
             name = accountName;
             if (initialBalance > 0)
@@ -31,19 +31,20 @@ class Account
             return name;
         }
 
-        void deposit(int depositAmount)
+        void deposit(long depositAmount)
         {
             if (depositAmount > 0)
                 balance += depositAmount;
         }
 
-        int getBalance() const
+        long getBalance() const
         {
             return balance;
         }
 
         void displayAccount()
         {
+            //using this-> pointer
             std::cout << "The account: " << this->getName() << " has balance of $" << this->getBalance() << std::endl;
         }
 
