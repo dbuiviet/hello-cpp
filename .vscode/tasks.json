@@ -9,11 +9,11 @@
             "command": "g++",
             "args": [
                 "-g",
-                "*.cpp",
+                "${workspaceFolder}/src/*.cpp",
                 "-o",
                 "hellocpp",
                 "-I",
-                "${Workspacefolder}/include"
+                "${workspaceFolder}/include"
             ],
             "group": {
                 "kind": "build",

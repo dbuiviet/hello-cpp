@@ -1,7 +1,7 @@
 #include <iostream>
-#include "include/add.h"
-#include "include/multiply.h"
-#include "include/Account.h"
+#include "../include/add.h"
+#include "../include/multiply.h"
+#include "../include/Account.h"
 //#include <cstdint>
 //#include "stdafx.h"
 #include <bitset>
@@ -243,8 +243,10 @@ int main()
     Account account1{"Viet Dung", 1000};
     Account account2{"Tuong Phi", 100};
 
-    cout << "account1: " << account1.getName() << " has balance of $" << account1.getBalance() << endl;
-    cout << "account2: " << account2.getName() << " has balance of $" << account2.getBalance() << endl;
+    //cout << "account1: " << account1.getName() << " has balance of $" << account1.getBalance() << endl;
+    //cout << "account2: " << account2.getName() << " has balance of $" << account2.getBalance() << endl;
+    account1.displayAccount();
+    account2.displayAccount();
 
     cout << "Enter a deposit for " << account1.getName() << " : ";
     int depositAmount1(0);
@@ -258,8 +260,10 @@ int main()
     cout << "Adding $" << depositAmount2 << " to " << account2.getName() << endl;
     account2.deposit(depositAmount2);
 
-    cout << "account1: " << account1.getName() << " has balance of $" << account1.getBalance() << endl;
-    cout << "account2: " << account2.getName() << " has balance of $" << account2.getBalance() << endl;
+    //cout << "account1: " << account1.getName() << " has balance of $" << account1.getBalance() << endl;
+    //cout << "account2: " << account2.getName() << " has balance of $" << account2.getBalance() << endl;
+    account1.displayAccount();
+    account2.displayAccount();
 
     return 0;
 }

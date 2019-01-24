@@ -1,6 +1,7 @@
 //This is the start of header guard
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
+#include <iostream>
 #include <string>
 
 class Account
@@ -39,6 +40,11 @@ class Account
         int getBalance() const
         {
             return balance;
+        }
+
+        void displayAccount()
+        {
+            std::cout << "The account: " << this->getName() << " has balance of $" << this->getBalance() << std::endl;
         }
 
 };
