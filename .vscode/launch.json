@@ -22,8 +22,8 @@
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
                 }
-            ],
-            "preLaunchTask": "Hello CPP"
+            ]
+            //"preLaunchTask": "Hello CPP"
         }
     ]
 }

@@ -1,5 +1,7 @@
 #include <iostream>
-#include "add.h"
+#include "include/add.h"
+#include "include/multiply.h"
+#include "include/Account.h"
 //#include <cstdint>
 //#include "stdafx.h"
 #include <bitset>
@@ -68,6 +70,14 @@ const int option5 = 5;
 const int option6 = 6;
 const int option7 = 7;
 
+void incrementAndPrint()
+{
+    static int s_value(1);  //static duration via static keyword. This line is only executed once
+    ++s_value;
+    std::cout << s_value << "\n";
+
+}
+
 int main()
 {
     /* code */
@@ -100,7 +110,8 @@ int main()
     doIt(x);
     std::cout << "main: x = " << x << " y = " << y << std::endl;
 
-    cout << "The sum of 3 and 4 is: " << add(3,4) << endl;
+    cout << "The sum of 3 and 4 is: " << basicMath::add(3,4) << endl;
+    cout << "The multiply of 3 and 4 is: " << basicMath::multiply(3,4) << endl;
 
     std::cout << "bool:\t\t" << sizeof(bool) << " bytes" << std::endl;
     std::cout << "char:\t\t" << sizeof(char) << " bytes" << std::endl;
@@ -224,6 +235,31 @@ int main()
 
     std::cout << "local variable: " << g_var << endl;
     std::cout << "global variable: " << ::g_var << endl;
+
+    incrementAndPrint();
+    incrementAndPrint();    //value of s_value is whatever we left it previously
+    incrementAndPrint();
+
+    Account account1{"Viet Dung", 1000};
+    Account account2{"Tuong Phi", 100};
+
+    cout << "account1: " << account1.getName() << " has balance of $" << account1.getBalance() << endl;
+    cout << "account2: " << account2.getName() << " has balance of $" << account2.getBalance() << endl;
+
+    cout << "Enter a deposit for " << account1.getName() << " : ";
+    int depositAmount1(0);
+    cin >> depositAmount1;
+    cout << "Adding $" << depositAmount1 << " to " << account1.getName() << endl;
+    account1.deposit(depositAmount1);
+
+    cout << "Enter a deposit for " << account2.getName() << " : ";
+    int depositAmount2(0);
+    cin >> depositAmount2;
+    cout << "Adding $" << depositAmount2 << " to " << account2.getName() << endl;
+    account2.deposit(depositAmount2);
+
+    cout << "account1: " << account1.getName() << " has balance of $" << account1.getBalance() << endl;
+    cout << "account2: " << account2.getName() << " has balance of $" << account2.getBalance() << endl;
 
     return 0;
 }

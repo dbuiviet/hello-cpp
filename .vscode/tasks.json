@@ -11,7 +11,9 @@
                 "-g",
                 "*.cpp",
                 "-o",
-                "hellocpp"
+                "hellocpp",
+                "-I",
+                "${Workspacefolder}/include"
             ],
             "group": {
                 "kind": "build",
