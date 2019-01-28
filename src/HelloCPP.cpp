@@ -6,6 +6,7 @@
 //#include <cstdint>
 //#include "stdafx.h"
 #include <bitset>
+#include <cstdlib> //needed for exit()
 using namespace std;
 
 
@@ -95,6 +96,14 @@ enum Color
     COLOR_MAGENTA  //assigned to 7
 }; // however the enum itself must end with a semicolon
 
+//to make enumaration specific typed
+enum class Fruit
+{
+    BANANA,
+    APPLE,
+    ORANGE
+};
+
 void printColor(Color color)
 {
     /*
@@ -140,7 +149,7 @@ void printColor(Color color)
         case COLOR_GREEN:
             std::cout << "Green in enum Color is assigned to " << color << endl;
 
-        case COLOR_WHITE:
+        case COLOR_WHITE:// Do whatever here
             std::cout << "White in enum Color is assigned to " << color << endl;
 
         case COLOR_CYAN:
@@ -155,6 +164,48 @@ void printColor(Color color)
         default:
             std::cout << "Who knows!";
     }
+}
+
+struct Employee
+{
+        /* data */
+    string name;
+    short id;
+    int age;
+    double wage;
+};
+
+//nested struc
+struct Company
+{
+    Employee CEO;
+    int numberOfEmployees;
+};
+
+void printEmployeeInfo(Employee employee)
+{
+    std::cout << "Name:   " << employee.name << "\n";
+    std::cout << "ID:   " << employee.id << "\n";
+    std::cout << "Age:  " << employee.age << "\n";
+    std::cout << "Wage: " << employee.wage << "\n";
+}
+
+enum class ErrorCode
+{
+    ERROR_SUCCESS = 0,
+    ERROR_NEGATIVE_NUMBER = -1
+};
+
+ErrorCode checkValue(int value)
+{
+    // if value is a negative number
+    if (value < 0)
+       // early return an error code
+        return ErrorCode::ERROR_NEGATIVE_NUMBER;
+ 
+    //value = powerInt(value, 2); //square up value
+ 
+    return ErrorCode::ERROR_SUCCESS;
 }
 
 //main() starting..
@@ -366,6 +417,103 @@ int main()
     cout << "Adding $" << depositAmount3 << " to " << newAccount.getName() << endl;
     newAccount.displayAccount();
 
+    Fruit myFavFruit = Fruit::BANANA;
+    if (myFavFruit == Fruit::BANANA)
+        cout << "Good choice! Banana is good for health" << endl;
+    else
+    {
+        cout << "Orange and Apple are good too!" << endl;
+    }
+
+    //typedef is meaningful for code maintenance (making complex types simple) and platform independent
+    typedef int testScore_t;
+    //then we can use descriptive name of typedef to declare function type and return value
+    //in C++11 compatible, we can use another way of type alias
+    using gradeScore_t = double;    //clearer to remember    
+   
+
+    //struct initilization
+    Employee Joe{"Joe", 1, 32, 5000.0};
+    Employee Jack{"Jack", 2, 30};
+
+    Jack.wage += 4500;
+
+    if (Joe.wage > Jack.wage)
+        cout << "Joe makes more than Jack" << endl;
+    
+    //today is Joe's birthday
+    ++Joe.age;
+
+    printEmployeeInfo(Joe);
+    printEmployeeInfo(Jack);
+
+    Company myCompany{{"David", 0, 40, 60000.0}, 3};
+    cout << "The CEO info: " << endl;
+    printEmployeeInfo(myCompany.CEO);
+    cout << "My company has " << myCompany.numberOfEmployees << " employess" << endl;
+
+    //exit(0);
+    std::cout << "Enter a positive number: ";
+    int posNum;
+    std::cin >> posNum;
+ 
+    while (checkValue(posNum) == ErrorCode::ERROR_NEGATIVE_NUMBER)
+    {
+        std::cout << "You entered a negative number! Please re-enter a positive number: ";
+        std::cin >> posNum;
+    }
+
+    /*
+    //statement label
+    tryAgain:
+        std::cout << "Oops, You entered a negative number! Please re-enter a positive, non-zero number: ";
+        std::cin >> posNum;
+
+    if (posNum <= 0)
+        goto tryAgain; //avoid goto statement because of 'spaghetti code'
+    */
+    
+    std::cout << "The square value of " << posNum << " is: " << powerInt(posNum,2) << endl;
+
+    /*
+    int outer = 1;
+    while (outer <= 5)
+    {
+        // loop between 1 and outer
+        int inner = 5;
+        while (inner >= outer)
+        {
+            std::cout << inner << " ";
+            --inner;
+        }
+ 
+        // print a newline at the end of each row
+        std::cout << "\n";
+        ++outer;
+    }
+    */
+
+    int outer = 1;
+    while (outer <= 5)
+    {
+        int inner = 5;
+        while ((inner - outer) > 0)
+        {
+            std::cout << " " << " ";            
+            --inner;
+        }
+
+        while (inner >= 1)
+        {
+            std::cout << inner << " ";
+            --inner;
+        }
+            
+            
+        // print a newline at the end of each row
+        std::cout << "\n";
+        ++outer;
+    }
 
     return 0;
 }
