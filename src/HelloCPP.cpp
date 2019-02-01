@@ -6,7 +6,10 @@
 //#include <cstdint>
 //#include "stdafx.h"
 #include <bitset>
-#include <cstdlib> //needed for exit()
+#include <cstdlib> //needed for exit(), std::srand() and rand()
+#include <ctime>    //for std::time()
+#include <iterator>
+#include <array>
 using namespace std;
 
 
@@ -22,10 +25,27 @@ void doPrint()
 
 int getValueFromUser()
 {
-    int x;
-    cout << "Enter an integer: ";
-    cin >> x;
-    return x;
+    //input validation
+    while(true)
+    {
+        int x;
+        cout << "Enter an integer: ";
+        cin >> x;
+
+        //check for failed extraction
+        if(std::cin.fail())
+        {
+            std::cin.clear();   //clear 'extraction' buffer
+            std::cin.ignore(32767,'\n');    //remove any extraneous input
+            std::cout << "Oops, that input is invalid.  Please try again.\n";
+        }
+        else
+        {
+            std::cin.ignore(32767,'\n');
+            return x;
+        }
+    }
+    
 }
 
 void doIt(int x)
@@ -208,10 +228,35 @@ ErrorCode checkValue(int value)
     return ErrorCode::ERROR_SUCCESS;
 }
 
+//assuming (max-min) <= RAND_MAX
+int getRandomNumber(int min, int max)
+{
+    static const double fraction = 1.0 / (RAND_MAX + 1.0);  // static used for efficiency, so we only calculate this value once
+    // evenly distribute the random number across our range
+    return min + static_cast<int>((max - min + 1) * (std::rand() * fraction));
+}
+
+namespace Animal
+{
+    enum AnimalNames
+    {
+        CHICKEN,
+        DOG,
+        CAT,
+        ELEPHANT,
+        DUCK,
+        SNAKE,
+        MAX_ANIMALS
+    };
+    
+}; // Animal
+
 //main() starting..
 int main()
 {
     /* code */
+    //std::srand(5323);   //set initial seed value to 5323
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));  //set initial seed value to time value of clock
 
     cout << "Starting main()" << endl;
 
@@ -514,6 +559,62 @@ int main()
         std::cout << "\n";
         ++outer;
     }
+
+     // selection must be declared outside do/while loop, otherwise it will be
+     //destroyed after the 'do' block ends
+    int selection;
+ 
+    do
+    {
+        std::cout << "Please make a selection: \n";
+        std::cout << "1) Addition\n";
+        std::cout << "2) Subtraction\n";
+        std::cout << "3) Multiplication\n";
+        std::cout << "4) Division\n";
+        std::cin >> selection;
+    }
+    while (selection != 1 && selection != 2 &&
+        selection != 3 && selection != 4);
+ 
+    // do something with selection here
+    // such as a switch statement
+ 
+    std::cout << "You selected option #" << selection << "\n";
+
+    // Print 100 random numbers
+    /*
+    for (int count=1; count <= 100; ++count)
+    {
+        //range from 0 to RAND_MAX
+        std::cout << std::rand() << "\t";
+ 
+        // If we've printed 5 numbers, start a new row
+        if (count % 5 == 0)
+            std::cout << "\n";
+	}
+    */
+
+    std::cout << "Let's roll a dice!\n";    
+    std::cout << "Your rolled number is: " << getRandomNumber(1,6) << endl;
+
+    int animalArray[Animal::AnimalNames::MAX_ANIMALS] = {2,4,4,4,2,0};
+
+    std::cout << "A elephant has " << animalArray[Animal::AnimalNames::ELEPHANT] << " legs" << endl;
+    std::cout << "A duck has " << animalArray[Animal::AnimalNames::DUCK] << " legs" << endl;
+    std::cout << "A snake has " << animalArray[Animal::AnimalNames::SNAKE] << " legs" << endl;
+
+    //int scores[] = { 84, 92, 76, 81, 56 };
+    std::array<int,5> scores = {84, 92, 76, 81, 56};
+    //const int numStudents = std::size(scores); // requires C++17 and <iterator> header
+    //const int numStudents = sizeof(scores)/sizeof(scores[0]);
+    const int numStudents = scores.size();    
+
+    int totalScore = 0;
+    for (int student = 0; student < numStudents; student++)
+        totalScore += scores[student];
+
+    double avgScore = static_cast<double>(totalScore) /numStudents;
+    std::cout << "The average score of the class is: " << avgScore << endl;
 
     return 0;
 }
