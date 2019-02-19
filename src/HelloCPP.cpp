@@ -12,6 +12,8 @@
 #include <array>
 using namespace std;
 
+#include "plog/Log.h"   //include the logger header
+
 
 //forward declaration or fuction prototype, declared in other file!
 //int add(int x, int y);
@@ -25,6 +27,7 @@ void doPrint()
 
 int getValueFromUser()
 {
+    LODG << "getValueFromUser() called";
     //input validation
     while(true)
     {
@@ -231,6 +234,7 @@ ErrorCode checkValue(int value)
 //assuming (max-min) <= RAND_MAX
 int getRandomNumber(int min, int max)
 {
+    std::cerr << "getRandomNumber() called" << endl;
     static const double fraction = 1.0 / (RAND_MAX + 1.0);  // static used for efficiency, so we only calculate this value once
     // evenly distribute the random number across our range
     return min + static_cast<int>((max - min + 1) * (std::rand() * fraction));
@@ -254,6 +258,8 @@ namespace Animal
 //main() starting..
 int main()
 {
+    plog::init(plog::debug,"Logfile.txt"); //initialize the logger and write output to Logfile.txt
+    LODG << "The main() called";
     /* code */
     //std::srand(5323);   //set initial seed value to 5323
     std::srand(static_cast<unsigned int>(std::time(nullptr)));  //set initial seed value to time value of clock
@@ -615,6 +621,8 @@ int main()
 
     double avgScore = static_cast<double>(totalScore) /numStudents;
     std::cout << "The average score of the class is: " << avgScore << endl;
+
+    
 
     return 0;
 }
