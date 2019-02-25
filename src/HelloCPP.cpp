@@ -12,7 +12,7 @@
 #include <array>
 using namespace std;
 
-#include "plog/Log.h"   //include the logger header
+#include "../include/plog/Log.h"   //include the logger header
 
 
 //forward declaration or fuction prototype, declared in other file!
@@ -27,7 +27,7 @@ void doPrint()
 
 int getValueFromUser()
 {
-    LODG << "getValueFromUser() called";
+    LOGD << "getValueFromUser() called";
     //input validation
     while(true)
     {
@@ -259,7 +259,7 @@ namespace Animal
 int main()
 {
     plog::init(plog::debug,"Logfile.txt"); //initialize the logger and write output to Logfile.txt
-    LODG << "The main() called";
+    LOGD << "The main() called";
     /* code */
     //std::srand(5323);   //set initial seed value to 5323
     std::srand(static_cast<unsigned int>(std::time(nullptr)));  //set initial seed value to time value of clock
@@ -622,7 +622,17 @@ int main()
     double avgScore = static_cast<double>(totalScore) /numStudents;
     std::cout << "The average score of the class is: " << avgScore << endl;
 
-    
+    int value = 5;
+    std::cout << value << '\n'; // print the value of variable x
+    std::cout << &value << '\n'; // print the memory address of variable x
+    std::cout << *&value << '\n'; /// print the value at the memory address of variable x
+
+    int *ptr = &value; // initialize ptr with address of variable value
+    std::cout << &value << '\n'; // print the address of variable value
+    std::cout << ptr << '\n'; // print the address that ptr is holding
+
+    std::cout << sizeof(ptr) << endl;
+    std::cout << sizeof(*ptr) << endl;
 
     return 0;
 }
