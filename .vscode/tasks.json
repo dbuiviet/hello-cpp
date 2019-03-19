@@ -11,10 +11,16 @@
                 "-g",
                 "${workspaceFolder}/src/*.cpp",
                 "-o",
-                "hellocpp",
+                "HelloCPP",
                 "-I",
                 "${workspaceFolder}/include"
             ],
+            // "args": [
+            //     "-g",
+            //     "${workspaceFolder}/src/CheckInput.cpp",
+            //     "-o",
+            //     "CheckInput"
+            // ],
             "group": {
                 "kind": "build",
                 "isDefault": true
