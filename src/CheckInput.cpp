@@ -44,7 +44,7 @@ char getOperator()
                 return op;
             else
             {
-                std::cout << "Not valid input. Please try again!" << std::endl;
+                std::cout << "Wrong operator entered. Please try again!" << std::endl;
             }
             
         }
@@ -71,14 +71,14 @@ void printResult(double x, char op, double y)
     
 }
 
-int main()
-{
-    double x = getDouble();
-    char op = getOperator();
-    double y = getDouble();
+// int main()
+// {
+//     double x = getDouble();
+//     char op = getOperator();
+//     double y = getDouble();
 
-    printResult(x, op, y);
+//     printResult(x, op, y);
 
 
-    return 0;
-}
+//     return 0;
+// }

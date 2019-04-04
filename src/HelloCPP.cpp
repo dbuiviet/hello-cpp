@@ -10,6 +10,7 @@
 #include <ctime>    //for std::time()
 #include <iterator>
 #include <array>
+#include <algorithm>    //for std::sort
 using namespace std;
 
 #include "../include/plog/Log.h"   //include the logger header
@@ -254,6 +255,18 @@ namespace Animal
     };
     
 }; // Animal
+
+// Note: You need to specify the array size in the function declaration
+// to pass reference as variable to function
+void printElements(int (&arr)[4])
+{
+  int length{ sizeof(arr) / sizeof(arr[0]) }; // we can now do this since the array won't decay
+  
+  for (int i{ 0 }; i < length; ++i)
+  {
+    std::cout << arr[i] << std::endl;
+  }
+}
 
 //main() starting..
 int main()
@@ -634,8 +647,32 @@ int main()
     std::cout << sizeof(ptr) << endl;
     std::cout << sizeof(*ptr) << endl;
 
+    int arr[]{ 99, 20, 14, 80 };
     
+    printElements(arr);
 
+    std::array<int,5> myArray = {9, 5, 7, 1, 3};
+    std::sort(myArray.begin(), myArray.end());  //sort forward
+    //std::sort(myArray.rend(), myArray.rbegin()); //sort backward
+
+    for (const auto &element : myArray)
+    {
+        std::cout << element << ' ';
+    }
+
+    std::vector<int> vArray = {0, 1, 2};
+    vArray.resize(5);   //set new size to 5
+    for (const auto &element : vArray)
+    {
+        std::cout << element << ' ';    // print 0, 1, 2, 0, 0
+    }
+
+    std::vector<bool> bArray = {true, false, true, false, true};
+    for (const auto &element : bArray)
+    {
+        std::cout << element << ' ';    // print 1, 0, 1, 0, 1
+    }
+    
     return 0;
 }
 
